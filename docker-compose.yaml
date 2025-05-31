@@ -14,7 +14,6 @@ services:
 
   litellm:
     image: ghcr.io/berriai/litellm:main-stable
-
     volumes:
       - ./litellm/config.yaml:/config.yaml
     command: [ "--config", "/config.yaml" ]
@@ -25,5 +24,10 @@ services:
       AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
       AWS_REGION_NAME: ${AWS_REGION}
 
-# volumes:
-#   open-webui: {}
+  mcpo:
+    image: ghcr.io/open-webui/mcpo:main
+    ports:
+      - 8000:8000
+    volumes:
+      - ./mcpo/config.yaml:/config.yaml
+    command: [ "--config", "/config.yaml" ]
