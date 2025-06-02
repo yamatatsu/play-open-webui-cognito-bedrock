@@ -1,22 +1,24 @@
 services:
   open-webui:
-    image: ghcr.io/open-webui/open-webui:main
     container_name: open-webui
+    image: ghcr.io/open-webui/open-webui:main
     volumes:
       - ./data/open-webui:/app/backend/data
     ports:
       - 8080:8080
     environment:
-      - 'WEBUI_SECRET_KEY='
-      - 'ENABLE_OLLAMA_API=false'
-      - 'OPENAI_API_BASE_URL=http://litellm:4000'
-      - 'OPENAI_API_KEY=sk-12345'
+      WEBUI_SECRET_KEY: ""
+      ENABLE_OLLAMA_API: "false"
+      OPENAI_API_BASE_URL: "http://litellm:4000"
+      OPENAI_API_KEY: "sk-12345"
 
   litellm:
-    image: ghcr.io/berriai/litellm:main-stable
-    volumes:
-      - ./litellm/config.yaml:/config.yaml
-    command: [ "--config", "/config.yaml" ]
+    container_name: litellm
+    build:
+      context: ./litellm
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
     # bedrockにアクセス権限のあるクレデンシャル情報
     environment:
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
@@ -25,9 +27,9 @@ services:
       AWS_REGION_NAME: ${AWS_REGION}
 
   mcpo:
-    image: ghcr.io/open-webui/mcpo:main
+    container_name: mcpo
+    build:
+      context: ./mcpo
+      dockerfile: Dockerfile
     ports:
       - 8000:8000
-    volumes:
-      - ./mcpo/config.yaml:/config.yaml
-    command: [ "--config", "/config.yaml" ]
