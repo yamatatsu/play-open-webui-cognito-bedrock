@@ -11,6 +11,24 @@ services:
       ENABLE_OLLAMA_API: "false"
       OPENAI_API_BASE_URL: "http://litellm:4000"
       OPENAI_API_KEY: "sk-12345"
+      # Cognito 認証
+      ENABLE_LOGIN_FORM: "false"
+      ENABLE_OAUTH_SIGNUP: true
+      WEBUI_URL: http://localhost:8080
+      OAUTH_CLIENT_ID: 34rbs3jibktbarqrij0t8rkl68
+      OAUTH_CLIENT_SECRET: 7d33o3gpkakmm6uj53btp7goa75qkti9m3sov9l3vldg7bf27bf
+      OPENID_PROVIDER_URL: https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_ZmYsu6U5W/.well-known/openid-configuration
+      OAUTH_ROLES_CLAIM: email
+      OAUTH_ADMIN_ROLES: yamamoto.tatsuya@classmethod.jp
+      # # アプリケーションデータを保存するバケット
+      # S3_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      # S3_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      # S3_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+      # # S3_ENDPOINT_URL: 'https://s3.us-east-1.amazonaws.com'
+      # S3_REGION_NAME: 'ap-northeast-1'
+      # S3_BUCKET_NAME: open-webui-storage-660782280015-ap-northeast-1
+      # デバッグ
+      GLOBAL_LOG_LEVEL: DEBUG
 
   litellm:
     container_name: litellm
