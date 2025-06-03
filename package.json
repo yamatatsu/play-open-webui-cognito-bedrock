@@ -3,10 +3,13 @@
 	"version": "0.1.0",
 	"type": "module",
 	"dependencies": {
+		"@aws-cdk/aws-apprunner-alpha": "2.199.0-alpha.0",
+		"@cdklabs/generative-ai-cdk-constructs": "^0.1.309",
 		"aws-cdk-lib": "2.199.0",
 		"constructs": "^10.4.2"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
 		"@types/node": "22.14.1",
 		"aws-cdk": "2.1007.0",
 		"esbuild": "^0.25.2",

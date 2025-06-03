@@ -1,25 +1,27 @@
 services:
   open-webui:
     container_name: open-webui
-    image: ghcr.io/open-webui/open-webui:main
-    volumes:
-      - ./data/open-webui:/app/backend/data
+    build:
+      context: ./open-webui
+      dockerfile: Dockerfile
     ports:
       - 8080:8080
+    volumes:
+      - ./data/open-webui:/app/backend/data
     environment:
       WEBUI_SECRET_KEY: ""
       ENABLE_OLLAMA_API: "false"
       OPENAI_API_BASE_URL: "http://litellm:4000"
       OPENAI_API_KEY: "sk-12345"
+
       # Cognito 認証
       ENABLE_LOGIN_FORM: "false"
       ENABLE_OAUTH_SIGNUP: true
       WEBUI_URL: http://localhost:8080
-      OAUTH_CLIENT_ID: 34rbs3jibktbarqrij0t8rkl68
-      OAUTH_CLIENT_SECRET: 7d33o3gpkakmm6uj53btp7goa75qkti9m3sov9l3vldg7bf27bf
-      OPENID_PROVIDER_URL: https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_ZmYsu6U5W/.well-known/openid-configuration
-      OAUTH_ROLES_CLAIM: email
-      OAUTH_ADMIN_ROLES: yamamoto.tatsuya@classmethod.jp
+      OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
+      OAUTH_CLIENT_SECRET: ${OAUTH_CLIENT_SECRET}
+      OPENID_PROVIDER_URL: ${OPENID_PROVIDER_URL}
+
       # # アプリケーションデータを保存するバケット
       # S3_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       # S3_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}

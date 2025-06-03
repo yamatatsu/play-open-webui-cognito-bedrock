@@ -1,2 +1,5 @@
-data
+data/open-webui/*
+!data/open-webui/.gitkeep
 node_modules
+cdk.out
+.env
